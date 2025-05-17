@@ -57,6 +57,15 @@ export const routes: Routes = [
     data: { roles: ['TELLER'] },
   },
   {
+    path: 'account-info',
+    loadComponent: () =>
+      import('./pages/account-info/account-info.component').then(
+        (m) => m.AccountInfoComponent
+      ),
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['CUSTOMER'] },
+  },
+  {
     path: '**',
     redirectTo: 'login',
   },

@@ -61,23 +61,8 @@ export class LoginComponent {
               console.log('User is TELLER, redirecting to /account-create');
               this.router.navigateByUrl('/account-create');
             } else if (res.roles.includes('ROLE_CUSTOMER')) {
-              console.log('User is CUSTOMER, checking accounts');
-              this.accountService
-                .getAccounts()
-                .pipe(
-                  catchError((err) => {
-                    console.error('Error getting accounts:', err);
-                    return of([]);
-                  })
-                )
-                .subscribe((accounts) => {
-                  console.log('User accounts:', accounts);
-                  if (accounts && accounts.length > 0) {
-                    this.router.navigateByUrl('/transfer');
-                  } else {
-                    this.router.navigateByUrl('/new-account');
-                  }
-                });
+              console.log('User is CUSTOMER, redirecting to /account-info');
+              this.router.navigateByUrl('/account-info');
             } else {
               console.log('User has no valid role');
               this.errorMsg =

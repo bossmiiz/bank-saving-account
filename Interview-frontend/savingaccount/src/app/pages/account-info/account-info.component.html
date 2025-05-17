@@ -1,0 +1,51 @@
+<div class="account-info-container">
+  <h2 style="text-align: center; margin-bottom: 24px">ข้อมูลบัญชี</h2>
+
+  <div
+    *ngIf="errorMsg"
+    class="error"
+    style="text-align: center; margin-bottom: 16px"
+  >
+    {{ errorMsg }}
+  </div>
+
+  <div *ngIf="loading" class="loading">กำลังโหลดข้อมูล...</div>
+
+  <div *ngIf="!loading && accounts.length === 0" class="no-accounts">
+    ไม่พบข้อมูลบัญชี
+  </div>
+
+  <div *ngIf="!loading && accounts.length > 0" class="accounts-list">
+    <div *ngFor="let account of accounts" class="account-card">
+      <div class="account-header">
+        <h3>บัญชีออมทรัพย์</h3>
+        <span class="account-number">{{ account.accountNumber }}</span>
+      </div>
+
+      <div class="account-details">
+        <div class="detail-row">
+          <span class="label">ยอดเงินคงเหลือ:</span>
+          <span class="value"
+            >{{ account.balance | number : "1.2-2" }} บาท</span
+          >
+        </div>
+        <div class="detail-row">
+          <span class="label">ชื่อ-นามสกุล:</span>
+          <span class="value">{{ account.user.thaiName }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Name:</span>
+          <span class="value">{{ account.user.englishName }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">เลขบัตรประชาชน:</span>
+          <span class="value">{{ account.user.citizenId }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <button (click)="goToTransfer()" class="transfer-button">Transfer</button>
+  </div>
+</div>
