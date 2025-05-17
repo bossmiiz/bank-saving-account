@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./Interview-backend/saving-account
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - banking-network
+
+  frontend:
+    build:
+      context: ./Interview-frontend/savingaccount
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    networks:
+      - banking-network
+
+networks:
+  banking-network:
+    driver: bridge 
