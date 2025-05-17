@@ -48,6 +48,15 @@ export const routes: Routes = [
     data: { roles: ['CUSTOMER'] },
   },
   {
+    path: 'deposit',
+    loadComponent: () =>
+      import('./pages/deposit/deposit.component').then(
+        (m) => m.DepositComponent
+      ),
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['TELLER'] },
+  },
+  {
     path: '**',
     redirectTo: 'login',
   },
