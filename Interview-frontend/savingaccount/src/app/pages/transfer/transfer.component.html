@@ -1,0 +1,126 @@
+<div class="transfer-container">
+  <div class="account-info">
+    <div>Balance: {{ balance | number : "1.2-2" }}</div>
+    <div>Account: {{ accountNumber || "xxxxxxx" }}</div>
+  </div>
+
+  <form
+    [formGroup]="transferForm"
+    (ngSubmit)="onSubmit()"
+    class="transfer-form"
+  >
+    <div *ngIf="errorMsg" class="error" style="text-align: center">
+      {{ errorMsg }}
+    </div>
+    <div
+      *ngIf="successMsg"
+      style="color: #388e3c; text-align: center; margin-bottom: 8px"
+    >
+      {{ successMsg }}
+    </div>
+    <button
+      type="button"
+      class="view-statement-btn"
+      (click)="viewStatement()"
+      style="
+        width: 40%;
+        background-color: #388e3c;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 auto;
+        display: block;
+      "
+      *ngIf="successMsg"
+    >
+      View Statement
+    </button>
+
+    <label>Transfer to account</label>
+    <input
+      formControlName="toAccount"
+      type="text"
+      placeholder="Account number"
+      [disabled]="verifySuccess || loading"
+    />
+    <div
+      *ngIf="
+        transferForm.get('toAccount')?.touched &&
+        transferForm.get('toAccount')?.invalid
+      "
+      class="error"
+    >
+      กรุณากรอกเลขบัญชีปลายทาง
+    </div>
+
+    <label>Amount</label>
+    <input
+      formControlName="amount"
+      type="number"
+      placeholder="Amount"
+      [disabled]="verifySuccess || loading"
+    />
+    <div
+      *ngIf="
+        transferForm.get('amount')?.touched &&
+        transferForm.get('amount')?.invalid
+      "
+      class="error"
+    >
+      กรุณากรอกจำนวนเงิน
+    </div>
+
+    <button
+      type="button"
+      (click)="verifyAccount()"
+      [disabled]="verifySuccess || loading"
+      class="verify-btn"
+    >
+      Verify
+    </button>
+
+    <div *ngIf="verifySuccess" class="verify-result">
+      <div class="transfer-summary">
+        <div class="from" style="text-align: left">
+          {{ fromName }}<br />{{ accountNumber }}
+        </div>
+        <div
+          class="arrow"
+          style="
+            font-size: 1.2rem;
+            font-weight: 700;
+            min-width: 80px;
+            text-align: center;
+          "
+        >
+          {{ transferForm.value.amount || 0 | number : "1.2-2" }} &rarr;
+        </div>
+        <div class="to" style="text-align: right">
+          {{ toName }}<br />{{ transferForm.value.toAccount }}
+        </div>
+      </div>
+      <label>PIN</label>
+      <input
+        formControlName="pin"
+        type="password"
+        placeholder="PIN"
+        maxlength="6"
+        [disabled]="loading"
+      />
+      <div
+        *ngIf="
+          transferForm.get('pin')?.touched && transferForm.get('pin')?.invalid
+        "
+        class="error"
+      >
+        PIN 4-6 หลัก
+      </div>
+      <button type="submit" class="confirm-btn" [disabled]="loading">
+        <span *ngIf="!loading">Confirm</span>
+        <span *ngIf="loading">กำลังโอน...</span>
+      </button>
+    </div>
+  </form>
+</div>

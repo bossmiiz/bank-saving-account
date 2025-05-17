@@ -1,0 +1,67 @@
+<form [formGroup]="pinForm" (ngSubmit)="onSubmit()" class="login-form">
+  <h2>Bank Statement</h2>
+
+  <div *ngIf="errorMsg" class="error-message">
+    {{ errorMsg }}
+  </div>
+
+  <label>Account Number</label>
+  <input [value]="accountNumber" disabled />
+
+  <label>Date</label>
+  <input [value]="today | date : 'yyyy-MM-dd'" disabled />
+
+  <label>PIN</label>
+  <input
+    formControlName="pin"
+    type="password"
+    maxlength="6"
+    placeholder="Enter 4 or 6-digit PIN"
+    [disabled]="loading"
+  />
+  <div
+    *ngIf="pinForm.get('pin')?.touched && pinForm.get('pin')?.invalid"
+    class="error"
+  >
+    Please enter a valid 4 or 6-digit PIN
+  </div>
+
+  <button type="submit" [disabled]="loading">
+    <span *ngIf="!loading">Submit</span>
+    <span *ngIf="loading">Loading...</span>
+  </button>
+
+  <button type="button" (click)="goBack()" class="back-button">
+    ย้อนกลับไปหน้า Login
+  </button>
+
+  <div *ngIf="showTable && statementData.length > 0">
+    <table class="statement-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Code</th>
+          <th>Channel</th>
+          <th>Debit/Credit</th>
+          <th>Balance</th>
+          <th>Remark</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tx of statementData">
+          <td>{{ tx.date | date : "dd/MM/yy" }}</td>
+          <td>{{ tx.time }}</td>
+          <td>{{ tx.code }}</td>
+          <td>{{ tx.channel }}</td>
+          <td>{{ tx.debitCredit }}</td>
+          <td>{{ tx.balance }}</td>
+          <td>{{ tx.remark }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="showTable && statementData.length === 0" class="no-data-message">
+    ไม่พบรายการเดินบัญชีในวันนี้
+  </div>
+</form>

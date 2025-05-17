@@ -1,0 +1,120 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+  <h2 style="text-align: center; margin-bottom: 12px">Register</h2>
+
+  <div
+    *ngIf="successMsg"
+    style="color: #388e3c; text-align: center; margin-bottom: 8px"
+  >
+    {{ successMsg }}
+  </div>
+  <div
+    *ngIf="errorMsg"
+    style="color: #e53935; text-align: center; margin-bottom: 8px"
+  >
+    {{ errorMsg }}
+  </div>
+
+  <label>Email</label>
+  <input
+    formControlName="email"
+    type="email"
+    placeholder="example@email.com"
+    [disabled]="loading"
+  />
+  <div
+    *ngIf="
+      registerForm.get('email')?.touched && registerForm.get('email')?.invalid
+    "
+    class="error"
+  >
+    Please enter a valid email
+  </div>
+
+  <label>Password</label>
+  <input
+    formControlName="password"
+    type="password"
+    placeholder="Password must be at least 6 characters"
+    [disabled]="loading"
+  />
+  <div
+    *ngIf="
+      registerForm.get('password')?.touched &&
+      registerForm.get('password')?.invalid
+    "
+    class="error"
+  >
+    Password must be at least 6 characters
+  </div>
+
+  <label>ID</label>
+  <input
+    formControlName="citizenId"
+    type="text"
+    placeholder="Citizen ID"
+    [disabled]="loading"
+  />
+  <div
+    *ngIf="
+      registerForm.get('citizenId')?.touched &&
+      registerForm.get('citizenId')?.invalid
+    "
+    class="error"
+  >
+    Please enter a valid citizen ID (9-13 digits)
+  </div>
+
+  <label>Thai Name</label>
+  <input
+    formControlName="thaiName"
+    type="text"
+    placeholder="Thai Name"
+    [disabled]="loading"
+  />
+  <div
+    *ngIf="
+      registerForm.get('thaiName')?.touched &&
+      registerForm.get('thaiName')?.invalid
+    "
+    class="error"
+  >
+    Please enter a valid Thai name
+  </div>
+
+  <label>English Name</label>
+  <input
+    formControlName="englishName"
+    type="text"
+    placeholder="John Doe"
+    [disabled]="loading"
+  />
+  <div
+    *ngIf="
+      registerForm.get('englishName')?.touched &&
+      registerForm.get('englishName')?.invalid
+    "
+    class="error"
+  >
+    Please enter a valid English name
+  </div>
+
+  <label>PIN</label>
+  <input
+    formControlName="pin"
+    type="password"
+    placeholder="PIN 4-6 หลัก"
+    maxlength="6"
+    [disabled]="loading"
+  />
+  <div
+    *ngIf="registerForm.get('pin')?.touched && registerForm.get('pin')?.invalid"
+    class="error"
+  >
+    PIN 4-6 หลัก
+  </div>
+
+  <button type="submit" [disabled]="loading">
+    <span *ngIf="!loading">Create</span>
+    <span *ngIf="loading">Loading...</span>
+  </button>
+</form>

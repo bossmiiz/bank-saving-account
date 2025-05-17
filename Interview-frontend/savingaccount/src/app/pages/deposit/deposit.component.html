@@ -1,0 +1,58 @@
+<div class="deposit-container">
+  <h2 style="text-align: center; margin-bottom: 12px">Deposit</h2>
+  <form [formGroup]="depositForm" (ngSubmit)="onSubmit()" class="deposit-form">
+    <div *ngIf="errorMsg" class="error" style="text-align: center">
+      {{ errorMsg }}
+    </div>
+    <div
+      *ngIf="successMsg"
+      style="color: #388e3c; text-align: center; margin-bottom: 8px"
+    >
+      {{ successMsg }}
+    </div>
+
+    <label>Account Number</label>
+    <input
+      formControlName="accountNumber"
+      type="text"
+      placeholder="Account number"
+      [disabled]="loading"
+    />
+    <div
+      *ngIf="
+        depositForm.get('accountNumber')?.touched &&
+        depositForm.get('accountNumber')?.invalid
+      "
+      class="error"
+    >
+      กรุณากรอกเลขบัญชี 7 หลัก
+    </div>
+
+    <label>Amount</label>
+    <input
+      formControlName="amount"
+      type="number"
+      placeholder="Amount"
+      [disabled]="loading"
+    />
+    <div
+      *ngIf="
+        depositForm.get('amount')?.touched && depositForm.get('amount')?.invalid
+      "
+      class="error"
+    >
+      จำนวนเงินต้องฝากอย่างน้อย 1 บาท
+    </div>
+
+    <button type="submit" [disabled]="loading || !isTeller()">
+      <span *ngIf="!loading">Confirm</span>
+      <span *ngIf="loading">กำลังฝาก...</span>
+    </button>
+    <div
+      *ngIf="!isTeller()"
+      style="color: #e53935; text-align: center; margin-top: 16px"
+    >
+      Only TELLER can access this page.
+    </div>
+  </form>
+</div>

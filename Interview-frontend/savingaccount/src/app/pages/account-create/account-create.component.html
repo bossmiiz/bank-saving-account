@@ -1,0 +1,89 @@
+<div class="account-create-container">
+  <h2 style="text-align: center; margin-bottom: 12px">New Account</h2>
+  <form
+    [formGroup]="createForm"
+    (ngSubmit)="onSubmit()"
+    class="account-create-form"
+  >
+    <div *ngIf="errorMsg" class="error" style="text-align: center">
+      {{ errorMsg }}
+    </div>
+    <div
+      *ngIf="successMsg"
+      style="color: #388e3c; text-align: center; margin-bottom: 8px"
+    >
+      {{ successMsg }}
+      <div style="margin-top: 12px">
+        <button type="button" (click)="goToLogin()" class="login-button">
+          กลับไปยังหน้าเข้าสู่ระบบ
+        </button>
+      </div>
+    </div>
+
+    <ng-container *ngIf="isTeller">
+      <label>Citizen ID</label>
+      <input
+        formControlName="citizenId"
+        type="text"
+        placeholder="Citizen ID"
+        [disabled]="loading"
+      />
+      <div
+        *ngIf="
+          createForm.get('citizenId')?.touched &&
+          createForm.get('citizenId')?.invalid
+        "
+        class="error"
+      >
+        กรุณากรอกเลขบัตรประชาชน
+      </div>
+
+      <label>Thai Name</label>
+      <input
+        formControlName="thaiName"
+        type="text"
+        placeholder="ชื่อภาษาไทย"
+        [disabled]="loading"
+      />
+      <div
+        *ngIf="
+          createForm.get('thaiName')?.touched &&
+          createForm.get('thaiName')?.invalid
+        "
+        class="error"
+      >
+        กรุณากรอกชื่อภาษาไทย
+      </div>
+
+      <label>English Name</label>
+      <input
+        formControlName="englishName"
+        type="text"
+        placeholder="John Doe"
+        [disabled]="loading"
+      />
+      <div
+        *ngIf="
+          createForm.get('englishName')?.touched &&
+          createForm.get('englishName')?.invalid
+        "
+        class="error"
+      >
+        กรุณากรอกชื่อภาษาอังกฤษ
+      </div>
+    </ng-container>
+
+    <label>Initial Deposit</label>
+    <input
+      formControlName="initialDeposit"
+      type="number"
+      placeholder="Amount (optional)"
+      [disabled]="loading"
+    />
+
+    <button type="submit" [disabled]="loading">
+      <span *ngIf="!loading">Create</span>
+      <span *ngIf="loading">กำลังสร้าง...</span>
+    </button>
+  </form>
+</div>

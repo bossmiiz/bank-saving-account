@@ -1,0 +1,58 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+  <h2 style="text-align: center; margin-bottom: 12px">Login</h2>
+
+  <div
+    *ngIf="errorMsg"
+    style="color: #e53935; text-align: center; margin-bottom: 8px"
+  >
+    {{ errorMsg }}
+  </div>
+
+  <label>Email</label>
+  <input
+    formControlName="email"
+    type="email"
+    placeholder="example@email.com"
+    [disabled]="loading"
+  />
+  <div
+    *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+    class="error"
+  >
+    Please enter a valid email
+  </div>
+
+  <label>Password</label>
+  <input
+    formControlName="password"
+    type="password"
+    placeholder="Password must be at least 6 characters"
+    [disabled]="loading"
+  />
+  <div
+    *ngIf="
+      loginForm.get('password')?.touched && loginForm.get('password')?.invalid
+    "
+    class="error"
+  >
+    Password must be at least 6 characters
+  </div>
+
+  <button type="submit" [disabled]="loading">
+    <span *ngIf="!loading">Login</span>
+    <span *ngIf="loading">Loading...</span>
+  </button>
+
+  <div style="text-align: center; margin-top: 18px">
+    <a
+      routerLink="/register"
+      style="
+        color: #6c63ff;
+        text-decoration: underline;
+        font-size: 1rem;
+        cursor: pointer;
+      "
+      >Register</a
+    >
+  </div>
+</form>
