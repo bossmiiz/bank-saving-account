@@ -41,10 +41,7 @@ export class TransferComponent implements OnInit {
     this.transferForm = this.fb.group({
       toAccount: ['', [Validators.required]],
       amount: ['', [Validators.required, Validators.min(1)]],
-      pin: [
-        '',
-        [Validators.required, Validators.minLength(4), Validators.maxLength(6)],
-      ],
+      pin: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
     });
   }
 
@@ -109,9 +106,9 @@ export class TransferComponent implements OnInit {
     if (this.transferForm.valid && this.verifySuccess) {
       this.loading = true;
       const req = {
-        toAccountNumber: this.transferForm.value.toAccount,
+        toAccountNumber: this.transferForm.value.toAccount.trim(),
         amount: this.transferForm.value.amount,
-        pin: this.transferForm.value.pin,
+        pin: this.transferForm.value.pin.trim(),
       };
       this.accountService
         .transfer(this.accountNumber, req)

@@ -35,7 +35,7 @@ export class StatementComponent implements OnInit {
     private router: Router
   ) {
     this.pinForm = this.fb.group({
-      pin: ['', [Validators.required, Validators.pattern(/^\d{4}$|^\d{6}$/)]],
+      pin: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
     });
   }
 
@@ -54,7 +54,7 @@ export class StatementComponent implements OnInit {
       this.loading = true;
       // สมมติ verify PIN ผ่าน AuthService (mock)
       this.authService
-        .verifyPin(this.pinForm.value.pin)
+        .verifyPin(this.pinForm.value.pin.trim())
         .pipe(
           catchError((err) => {
             this.errorMsg = 'PIN ไม่ถูกต้อง';

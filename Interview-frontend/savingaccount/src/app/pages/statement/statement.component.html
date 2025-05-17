@@ -16,14 +16,14 @@
     formControlName="pin"
     type="password"
     maxlength="6"
-    placeholder="Enter 4 or 6-digit PIN"
+    placeholder="Enter 6-digit PIN"
     [disabled]="loading"
   />
   <div
     *ngIf="pinForm.get('pin')?.touched && pinForm.get('pin')?.invalid"
     class="error"
   >
-    Please enter a valid 4 or 6-digit PIN
+    Please enter a valid 6-digit PIN
   </div>
 
   <button type="submit" [disabled]="loading">

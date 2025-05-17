@@ -102,7 +102,7 @@
   <input
     formControlName="pin"
     type="password"
-    placeholder="PIN 4-6 หลัก"
+    placeholder="PIN 6 หลัก"
     maxlength="6"
     [disabled]="loading"
   />
@@ -110,7 +110,7 @@
     *ngIf="registerForm.get('pin')?.touched && registerForm.get('pin')?.invalid"
     class="error"
   >
-    PIN 4-6 หลัก
+    PIN ต้องเป็นตัวเลข 6 หลัก
   </div>
 
   <button type="submit" [disabled]="loading">

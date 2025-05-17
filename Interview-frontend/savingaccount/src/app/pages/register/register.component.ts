@@ -38,10 +38,7 @@ export class RegisterComponent {
       ],
       thaiName: ['', Validators.required],
       englishName: ['', Validators.required],
-      pin: [
-        '',
-        [Validators.required, Validators.minLength(4), Validators.maxLength(6)],
-      ],
+      pin: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
     });
   }
 
@@ -50,8 +47,16 @@ export class RegisterComponent {
     this.errorMsg = '';
     if (this.registerForm.valid) {
       this.loading = true;
+      const formValue = {
+        email: this.registerForm.value.email.trim(),
+        password: this.registerForm.value.password.trim(),
+        citizenId: this.registerForm.value.citizenId.trim(),
+        thaiName: this.registerForm.value.thaiName.trim(),
+        englishName: this.registerForm.value.englishName.trim(),
+        pin: this.registerForm.value.pin.trim(),
+      };
       this.authService
-        .register(this.registerForm.value)
+        .register(formValue)
         .pipe(
           catchError((err) => {
             this.errorMsg =
