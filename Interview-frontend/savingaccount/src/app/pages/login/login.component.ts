@@ -65,8 +65,7 @@ export class LoginComponent {
               this.router.navigateByUrl('/account-info');
             } else {
               console.log('User has no valid role');
-              this.errorMsg =
-                'คุณยังไม่มีบัญชีในระบบ กรุณาติดต่อพนักงานเพื่อเปิดบัญชีใหม่';
+              this.errorMsg = `Can't find account in the system. Please contact the teller to open a new account.`;
               this.loading = false;
             }
           }

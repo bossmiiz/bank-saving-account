@@ -32,7 +32,7 @@
   </button>
 
   <button type="button" (click)="goBack()" class="back-button">
-    ย้อนกลับไปหน้า Login
+    Back to Login
   </button>
 
   <div *ngIf="showTable && statementData.length > 0">
@@ -62,6 +62,6 @@
     </table>
   </div>
   <div *ngIf="showTable && statementData.length === 0" class="no-data-message">
-    ไม่พบรายการเดินบัญชีในวันนี้
+    No transactions found for today
   </div>
 </form>

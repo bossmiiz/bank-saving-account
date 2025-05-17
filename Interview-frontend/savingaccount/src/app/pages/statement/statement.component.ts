@@ -40,7 +40,7 @@ export class StatementComponent implements OnInit {
   }
 
   ngOnInit() {
-    // สมมติว่ามีบัญชีเดียว ดึงบัญชีแรก
+    // Assume there is only one account, get the first account
     this.accountService.getAccounts().subscribe((accounts) => {
       if (accounts && accounts.length > 0) {
         this.accountNumber = accounts[0].accountNumber;
@@ -52,19 +52,19 @@ export class StatementComponent implements OnInit {
     this.errorMsg = '';
     if (this.pinForm.valid && this.accountNumber) {
       this.loading = true;
-      // สมมติ verify PIN ผ่าน AuthService (mock)
+      // Assume PIN verification through AuthService (mock)
       this.authService
         .verifyPin(this.pinForm.value.pin.trim())
         .pipe(
           catchError((err) => {
-            this.errorMsg = 'PIN ไม่ถูกต้อง';
+            this.errorMsg = 'Invalid PIN';
             this.loading = false;
             return of(null);
           })
         )
         .subscribe((res) => {
           if (res && res.valid) {
-            // ดึง statement เฉพาะวันปัจจุบัน (ส่ง pin ไปด้วย)
+            // Get statement for current day only (send pin along)
             const dateStr = this.today.toISOString().slice(0, 10);
             this.accountService
               .getTransactionsByDate(
@@ -75,7 +75,7 @@ export class StatementComponent implements OnInit {
               .pipe(
                 catchError((err) => {
                   this.errorMsg =
-                    err?.error?.message || 'ไม่พบข้อมูล statement';
+                    err?.error?.message || 'No statement data found';
                   this.loading = false;
                   return of([]);
                 })
@@ -86,7 +86,7 @@ export class StatementComponent implements OnInit {
                 this.loading = false;
               });
           } else {
-            this.errorMsg = 'PIN ไม่ถูกต้อง';
+            this.errorMsg = 'Invalid PIN';
             this.loading = false;
           }
         });

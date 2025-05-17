@@ -25,11 +25,11 @@ export class TransferComponent implements OnInit {
   verifySuccess = false;
   errorMsg = '';
   successMsg = '';
-  // ข้อมูลบัญชีของผู้ใช้
+  // User account information
   balance = 0;
   accountNumber = '';
   fromName = '';
-  // ข้อมูลบัญชีปลายทาง
+  // Destination account information
   toName = '';
 
   constructor(
@@ -54,7 +54,7 @@ export class TransferComponent implements OnInit {
       .getAccounts()
       .pipe(
         catchError(() => {
-          this.errorMsg = 'ไม่สามารถโหลดข้อมูลบัญชีได้';
+          this.errorMsg = 'Unable to load account information';
           return of([]);
         })
       )
@@ -65,7 +65,7 @@ export class TransferComponent implements OnInit {
           this.balance = acc.balance;
           this.fromName = acc.user?.englishName || '-';
         } else {
-          this.errorMsg = 'ไม่พบข้อมูลบัญชี';
+          this.errorMsg = 'No account found';
         }
       });
   }
@@ -75,14 +75,14 @@ export class TransferComponent implements OnInit {
     this.successMsg = '';
     const toAccount = this.transferForm.value.toAccount;
     if (!toAccount) {
-      this.errorMsg = 'กรุณากรอกเลขบัญชีปลายทาง';
+      this.errorMsg = 'Please enter destination account number';
       return;
     }
     this.accountService
       .getAccount(toAccount)
       .pipe(
         catchError(() => {
-          this.errorMsg = 'ไม่พบเลขบัญชีปลายทาง';
+          this.errorMsg = 'Destination account not found';
           this.toName = '';
           this.verifySuccess = false;
           return of(null);
@@ -93,7 +93,7 @@ export class TransferComponent implements OnInit {
           this.toName = acc.user.englishName;
           this.verifySuccess = true;
         } else {
-          this.errorMsg = 'ไม่พบเลขบัญชีปลายทาง';
+          this.errorMsg = 'Destination account not found';
           this.toName = '';
           this.verifySuccess = false;
         }
@@ -114,14 +114,14 @@ export class TransferComponent implements OnInit {
         .transfer(this.accountNumber, req)
         .pipe(
           catchError((err) => {
-            this.errorMsg = err?.error?.message || 'โอนเงินไม่สำเร็จ';
+            this.errorMsg = err?.error?.message || 'Transfer failed';
             this.loading = false;
             return of(null);
           })
         )
         .subscribe((res) => {
           if (res) {
-            this.successMsg = 'โอนเงินสำเร็จ!';
+            this.successMsg = 'Transfer successful!';
             this.transferForm.reset();
             this.verifySuccess = false;
             this.getMyAccount(); // refresh balance
@@ -131,12 +131,16 @@ export class TransferComponent implements OnInit {
     } else {
       this.transferForm.markAllAsTouched();
       if (!this.verifySuccess) {
-        this.errorMsg = 'กรุณากด Verify เลขบัญชีปลายทาง';
+        this.errorMsg = 'Please verify destination account number';
       }
     }
   }
 
   viewStatement() {
     this.router.navigate(['/statement']);
+  }
+
+  goToAccountInfo() {
+    this.router.navigate(['/account-info']);
   }
 }

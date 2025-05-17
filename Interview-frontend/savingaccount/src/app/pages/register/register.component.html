@@ -61,7 +61,7 @@
     "
     class="error"
   >
-    Please enter a valid citizen ID (9-13 digits)
+    Please enter a valid citizen ID (13 digits)
   </div>
 
   <label>Thai Name</label>
@@ -85,7 +85,7 @@
   <input
     formControlName="englishName"
     type="text"
-    placeholder="John Doe"
+    placeholder="English Name"
     [disabled]="loading"
   />
   <div
@@ -102,7 +102,7 @@
   <input
     formControlName="pin"
     type="password"
-    placeholder="PIN 6 หลัก"
+    placeholder="PIN must be 6 digits"
     maxlength="6"
     [disabled]="loading"
   />
@@ -110,7 +110,7 @@
     *ngIf="registerForm.get('pin')?.touched && registerForm.get('pin')?.invalid"
     class="error"
   >
-    PIN ต้องเป็นตัวเลข 6 หลัก
+    PIN must be 6 digits
   </div>
 
   <button type="submit" [disabled]="loading">

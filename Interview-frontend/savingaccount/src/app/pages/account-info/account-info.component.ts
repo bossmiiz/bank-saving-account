@@ -36,7 +36,7 @@ export class AccountInfoComponent implements OnInit {
       .pipe(
         catchError((err) => {
           console.error('Error loading accounts:', err);
-          this.errorMsg = 'ไม่สามารถโหลดข้อมูลบัญชีได้';
+          this.errorMsg = 'Unable to load account information';
           return of([]);
         })
       )
@@ -49,4 +49,8 @@ export class AccountInfoComponent implements OnInit {
   goToTransfer() {
     this.router.navigate(['/transfer']);
   }
-} 
+
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
+}

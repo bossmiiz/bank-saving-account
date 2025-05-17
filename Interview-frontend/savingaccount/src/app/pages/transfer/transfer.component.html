@@ -52,7 +52,7 @@
       "
       class="error"
     >
-      กรุณากรอกเลขบัญชีปลายทาง
+      Please enter destination account number
     </div>
 
     <label>Amount</label>
@@ -69,7 +69,7 @@
       "
       class="error"
     >
-      กรุณากรอกจำนวนเงิน
+      Please enter amount
     </div>
 
     <button
@@ -79,6 +79,10 @@
       class="verify-btn"
     >
       Verify
+    </button>
+
+    <button type="button" (click)="goToAccountInfo()" class="verify-btn">
+      Back to Account Info
     </button>
 
     <div *ngIf="verifySuccess" class="verify-result">
@@ -115,11 +119,11 @@
         "
         class="error"
       >
-        PIN ต้องเป็นตัวเลข 6 หลัก
+        PIN must be 6 digits
       </div>
       <button type="submit" class="confirm-btn" [disabled]="loading">
         <span *ngIf="!loading">Confirm</span>
-        <span *ngIf="loading">กำลังโอน...</span>
+        <span *ngIf="loading">Transferring...</span>
       </button>
     </div>
   </form>
