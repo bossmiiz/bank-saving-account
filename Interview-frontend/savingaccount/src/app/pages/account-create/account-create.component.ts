@@ -55,6 +55,10 @@ export class AccountCreateComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  goToDeposit() {
+    this.router.navigate(['/deposit']);
+  }
+
   onSubmit() {
     this.errorMsg = '';
     this.successMsg = '';

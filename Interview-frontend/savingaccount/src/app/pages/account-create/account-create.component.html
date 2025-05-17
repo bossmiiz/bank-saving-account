@@ -85,5 +85,9 @@
       <span *ngIf="!loading">Create</span>
       <span *ngIf="loading">กำลังสร้าง...</span>
     </button>
+
+    <button type="submit" (click)="goToDeposit()" [disabled]="loading">
+      <span>Deposit</span>
+    </button>
   </form>
 </div>
