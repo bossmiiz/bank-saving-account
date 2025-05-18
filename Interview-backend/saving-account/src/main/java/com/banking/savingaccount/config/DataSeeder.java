@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 @Component
-@Profile("dev") // รันเฉพาะ dev profile
+@Profile("dev")
 @RequiredArgsConstructor
 public class DataSeeder implements CommandLineRunner {
 
@@ -22,7 +22,7 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // สร้าง TELLER ถ้ายังไม่มี
+
         if (userRepository.findByEmail("teller1@bank.com").isEmpty()) {
             RegisterRequest tellerReq = new RegisterRequest();
             tellerReq.setEmail("teller1@bank.com");

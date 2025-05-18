@@ -31,7 +31,6 @@ public class TransactionServiceImpl implements TransactionService {
             throw new RuntimeException("Invalid PIN");
         }
 
-        // ไม่ต้องใช้ year/month แล้ว (deprecated)
         return new ArrayList<>();
     }
 
@@ -72,7 +71,7 @@ public class TransactionServiceImpl implements TransactionService {
         if (!account.getUser().getPin().equals(request.getPin())) {
             throw new RuntimeException("Invalid PIN");
         }
-        // filter เฉพาะวันเดียว
+
         LocalDateTime startDate = LocalDateTime.parse(request.getDate() + "T00:00:00");
         LocalDateTime endDate = startDate.plusDays(1).minusSeconds(1);
         List<Transaction> txs = transactionRepository.findByAccountAndCreatedAtBetweenOrderByCreatedAtDesc(account,
@@ -91,7 +90,7 @@ public class TransactionServiceImpl implements TransactionService {
     private List<TransactionStatementDto> mapToStatementDto(List<Transaction> txs, Account account) {
         List<TransactionStatementDto> result = new ArrayList<>();
         BigDecimal runningBalance = account.getBalance();
-        // เรียงจากอดีต -> ปัจจุบัน
+
         txs.sort((a, b) -> a.getCreatedAt().compareTo(b.getCreatedAt()));
         for (Transaction tx : txs) {
             String code = mapTypeToCode(tx.getType());

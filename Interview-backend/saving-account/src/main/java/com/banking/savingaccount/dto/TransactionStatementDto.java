@@ -10,11 +10,11 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionStatementDto {
-    private String date; // yyyy-MM-dd
-    private String time; // HH:mm
-    private String code; // เช่น A0, A1, A3
-    private String channel; // OTC, ATS
-    private String debitCredit; // +100.00 หรือ -50.00
+    private String date;
+    private String time;
+    private String code;
+    private String channel;
+    private String debitCredit;
     private BigDecimal balance;
     private String remark;
 }
