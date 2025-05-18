@@ -70,6 +70,12 @@
   min-height: 18px;
 }
 
+.button-container {
+  width: 50%;
+  margin: 0 auto;
+  display: block;
+}
+
 @media (max-width: 500px) {
   .account-create-container {
     max-width: 98vw;

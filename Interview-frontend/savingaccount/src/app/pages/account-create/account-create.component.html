@@ -15,7 +15,7 @@
       {{ successMsg }}
       <div style="margin-top: 12px">
         <button type="button" (click)="goToLogin()" class="login-button">
-          กลับไปยังหน้าเข้าสู่ระบบ
+          Logout
         </button>
       </div>
     </div>
@@ -35,7 +35,7 @@
         "
         class="error"
       >
-        กรุณากรอกเลขบัตรประชาชน
+        Please enter your Citizen ID
       </div>
 
       <label>Thai Name</label>
@@ -52,7 +52,7 @@
         "
         class="error"
       >
-        กรุณากรอกชื่อภาษาไทย
+        Please enter your Thai name
       </div>
 
       <label>English Name</label>
@@ -69,7 +69,7 @@
         "
         class="error"
       >
-        กรุณากรอกชื่อภาษาอังกฤษ
+        Please enter your English name
       </div>
     </ng-container>
 
@@ -80,14 +80,20 @@
       placeholder="Amount (optional)"
       [disabled]="loading"
     />
-
-    <button type="submit" [disabled]="loading">
-      <span *ngIf="!loading">Create</span>
-      <span *ngIf="loading">กำลังสร้าง...</span>
-    </button>
-
-    <button type="submit" (click)="goToDeposit()" [disabled]="loading">
-      <span>Deposit</span>
-    </button>
+    <div>
+      <button type="submit" [disabled]="loading" class="button-container">
+        <span *ngIf="!loading">Create</span>
+        <span *ngIf="loading">loading...</span>
+      </button>
+      <hr />
+      <button
+        type="submit"
+        (click)="goToDeposit()"
+        [disabled]="loading"
+        class="button-container"
+      >
+        <span>Deposit</span>
+      </button>
+    </div>
   </form>
 </div>
