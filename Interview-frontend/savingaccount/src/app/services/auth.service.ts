@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-// เพิ่ม interface LoginResponse
 export interface LoginResponse {
   token: string;
   roles: string[];
@@ -25,9 +24,6 @@ export class AuthService {
     this.loadStoredUser();
   }
 
-  /**
-   * เข้าสู่ระบบ
-   */
   login(email: string, password: string): Observable<LoginResponse> {
     console.log('AuthService: Attempting login for email:', email);
     return this.http
@@ -43,23 +39,14 @@ export class AuthService {
       );
   }
 
-  /**
-   * ลงทะเบียน
-   */
   register(userData: any): Observable<any> {
     return this.http.post(`${environment.apiUrl}/auth/register`, userData);
   }
 
-  /**
-   * ออกจากระบบ
-   */
   logout(): void {
     this.clearStoredUser();
   }
 
-  /**
-   * ตรวจสอบว่าล็อกอินอยู่หรือไม่
-   */
   isAuthenticated(): boolean {
     return !!this.currentUserSubject.value;
   }
@@ -73,25 +60,16 @@ export class AuthService {
     );
   }
 
-  /**
-   * ตรวจสอบว่าเป็น CUSTOMER หรือไม่
-   */
   isCustomer(): boolean {
     return (
       this.currentUserSubject.value?.roles.includes('ROLE_CUSTOMER') || false
     );
   }
 
-  /**
-   * ดึง token
-   */
   getToken(): string | null {
     return this.currentUserSubject.value?.token || null;
   }
 
-  /**
-   * โหลดข้อมูลผู้ใช้จาก localStorage
-   */
   private loadStoredUser(): void {
     const token = localStorage.getItem('token');
     const roles = localStorage.getItem('roles');
@@ -103,9 +81,6 @@ export class AuthService {
     }
   }
 
-  /**
-   * เก็บข้อมูลผู้ใช้ลง localStorage
-   */
   private storeUser(response: LoginResponse): void {
     console.log('AuthService: Storing user data:', response);
     localStorage.setItem('token', response.token);
@@ -117,18 +92,12 @@ export class AuthService {
     );
   }
 
-  /**
-   * ล้างข้อมูลผู้ใช้จาก localStorage
-   */
   private clearStoredUser(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('roles');
     this.currentUserSubject.next(null);
   }
 
-  /**
-   * ตรวจสอบ PIN
-   */
   verifyPin(pin: string): Observable<{ valid: boolean }> {
     const token = this.getToken();
     if (!token) {

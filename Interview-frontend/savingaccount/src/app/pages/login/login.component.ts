@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { RouterModule } from '@angular/router';
-import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -28,8 +27,7 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    private accountService: AccountService
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -48,7 +46,7 @@ export class LoginComponent {
           catchError((err) => {
             console.error('Login error:', err);
             this.errorMsg =
-              err?.error?.message || 'อีเมลหรือรหัสผ่านไม่ถูกต้อง';
+              err?.error?.message || 'Email or password is invalid';
             this.loading = false;
             return of(null);
           })
@@ -65,7 +63,8 @@ export class LoginComponent {
               this.router.navigateByUrl('/account-info');
             } else {
               console.log('User has no valid role');
-              this.errorMsg = `Can't find account in the system. Please contact the teller to open a new account.`;
+              this.errorMsg =
+                'Please contact the teller to open a new account.';
               this.loading = false;
             }
           }

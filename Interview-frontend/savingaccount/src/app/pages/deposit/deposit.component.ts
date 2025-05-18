@@ -8,6 +8,7 @@ import {
 import { AccountService } from '../../services/account.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-deposit',
@@ -25,7 +26,8 @@ export class DepositComponent {
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.depositForm = this.fb.group({
       accountNumber: ['', [Validators.required, Validators.pattern(/^\d{7}$/)]],
@@ -35,6 +37,10 @@ export class DepositComponent {
 
   isTeller(): boolean {
     return this.authService.isTeller();
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 
   onSubmit() {
@@ -49,12 +55,12 @@ export class DepositComponent {
       const { accountNumber, amount } = this.depositForm.value;
       this.accountService.deposit(accountNumber, +amount).subscribe({
         next: (res) => {
-          this.successMsg = 'ฝากเงินสำเร็จ!';
+          this.successMsg = 'Deposit successful!';
           this.depositForm.reset();
           this.loading = false;
         },
         error: (err) => {
-          this.errorMsg = err?.error?.message || 'ฝากเงินไม่สำเร็จ';
+          this.errorMsg = err?.error?.message || 'Deposit failed';
           this.loading = false;
         },
       });

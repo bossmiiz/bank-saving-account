@@ -43,10 +43,11 @@ export class AccountService {
     );
   }
 
-  /**
-   * ดึงธุรกรรมเฉพาะวัน (API จริง)
-   */
-  getTransactionsByDate(accountNumber: string, date: string, pin: string): Observable<any[]> {
+  getTransactionsByDate(
+    accountNumber: string,
+    date: string,
+    pin: string
+  ): Observable<any[]> {
     const payload = { date, pin };
     console.log('Statement request payload:', payload);
     return this.http.post<any[]>(

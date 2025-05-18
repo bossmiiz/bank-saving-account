@@ -60,14 +60,14 @@ export class RegisterComponent {
         .pipe(
           catchError((err) => {
             this.errorMsg =
-              err?.error?.message || 'เกิดข้อผิดพลาด กรุณาลองใหม่';
+              err?.error?.message || 'Something Wrong. Please try again.';
             this.loading = false;
             return of(null);
           })
         )
         .subscribe((res) => {
           if (res) {
-            this.successMsg = 'สมัครสมาชิกสำเร็จ! กำลังพาไปหน้า Login...';
+            this.successMsg = 'Registration successful!';
             setTimeout(() => {
               this.router.navigateByUrl('/login');
             }, 1200);

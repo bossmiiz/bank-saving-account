@@ -9,6 +9,11 @@
       style="color: #388e3c; text-align: center; margin-bottom: 8px"
     >
       {{ successMsg }}
+      <div style="margin-top: 12px">
+        <button type="button" (click)="goToLogin()" class="login-button">
+          Logout
+        </button>
+      </div>
     </div>
 
     <label>Account Number</label>
@@ -25,7 +30,7 @@
       "
       class="error"
     >
-      กรุณากรอกเลขบัญชี 7 หลัก
+      Please enter a 7-digit account number
     </div>
 
     <label>Amount</label>
@@ -41,12 +46,12 @@
       "
       class="error"
     >
-      จำนวนเงินต้องฝากอย่างน้อย 1 บาท
+      Minimum deposit amount is 1 THB
     </div>
 
     <button type="submit" [disabled]="loading || !isTeller()">
       <span *ngIf="!loading">Confirm</span>
-      <span *ngIf="loading">กำลังฝาก...</span>
+      <span *ngIf="loading">loading...</span>
     </button>
     <div
       *ngIf="!isTeller()"

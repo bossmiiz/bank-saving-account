@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '../../services/account.service';
-import { AuthService } from '../../services/auth.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
@@ -20,7 +19,6 @@ export class AccountInfoComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private authService: AuthService,
     private router: Router
   ) {}
 

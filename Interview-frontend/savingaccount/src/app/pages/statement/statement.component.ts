@@ -40,7 +40,6 @@ export class StatementComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Assume there is only one account, get the first account
     this.accountService.getAccounts().subscribe((accounts) => {
       if (accounts && accounts.length > 0) {
         this.accountNumber = accounts[0].accountNumber;
@@ -52,7 +51,6 @@ export class StatementComponent implements OnInit {
     this.errorMsg = '';
     if (this.pinForm.valid && this.accountNumber) {
       this.loading = true;
-      // Assume PIN verification through AuthService (mock)
       this.authService
         .verifyPin(this.pinForm.value.pin.trim())
         .pipe(
@@ -64,7 +62,6 @@ export class StatementComponent implements OnInit {
         )
         .subscribe((res) => {
           if (res && res.valid) {
-            // Get statement for current day only (send pin along)
             const dateStr = this.today.toISOString().slice(0, 10);
             this.accountService
               .getTransactionsByDate(

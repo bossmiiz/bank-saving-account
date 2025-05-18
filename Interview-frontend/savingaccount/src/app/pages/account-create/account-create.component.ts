@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AccountService } from '../../services/account.service';
 import { CommonModule } from '@angular/common';
 import { catchError } from 'rxjs/operators';
@@ -44,7 +39,6 @@ export class AccountCreateComponent implements OnInit {
   ngOnInit() {
     this.isTeller = this.authService.isTeller();
     if (!this.isTeller) {
-      // ถ้าไม่ใช่ teller ให้ disable ช่องที่ไม่เกี่ยวข้อง
       this.createForm.get('citizenId')?.disable();
       this.createForm.get('thaiName')?.disable();
       this.createForm.get('englishName')?.disable();
@@ -64,7 +58,6 @@ export class AccountCreateComponent implements OnInit {
     this.successMsg = '';
     if (this.createForm.valid) {
       this.loading = true;
-      // ส่งเฉพาะ field ที่จำเป็นตาม role
       const req = this.isTeller
         ? this.createForm.getRawValue()
         : { initialDeposit: this.createForm.value.initialDeposit };
