@@ -30,7 +30,7 @@ public class DataSeeder implements CommandLineRunner {
             tellerReq.setCitizenId("1111111111111");
             tellerReq.setThaiName("เทลเลอร์ หนึ่ง");
             tellerReq.setEnglishName("Teller One");
-            tellerReq.setPin("1234");
+            tellerReq.setPin("123456");
             User teller = userService.register(tellerReq);
             teller.setRoles(Set.of(UserRole.ROLE_TELLER));
             userRepository.save(teller);
